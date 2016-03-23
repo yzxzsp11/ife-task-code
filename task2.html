@@ -280,18 +280,19 @@
     <h2 class="aside">注册窗口标题</h2>
     <form action="" method="post">
         <div class="input">
-           请输入邮箱地址:
-            <input type="text" placeholder="text input">
+           <label for="mail">请输入邮箱地址:</label>
+            <input type="text" placeholder="text input" id="mail">
         </div>
         <div class="input">
             <p class="tips">请按照格式要求输入</p>
         </div>
         <div class="input">
-            请输入密码:<input type="password" placeholder="text input" id="password1">
+            <label for="password1">请输入密码:</label>
+            <input type="password" placeholder="text input" id="password1">
         </div>
         <div class="input">
-            请重复输入密码:
-            <input type="password" placeholder="text input">
+            <label for="pwd">请重复输入密码:</label>
+            <input type="password" placeholder="text input" id="pwd">
         </div>
         <div class="input">
             <p class="tips">密码为6-16位英文数字</p>
@@ -317,8 +318,8 @@
             <span class="hobbies"><input type="checkbox">科学</span>
         </div>
         <div class="input">
-            <span class="description">个人描述:</span>
-            <textarea>输入您的个人描述</textarea>
+            <label for="txt"><span class="description">个人描述:</span></label>
+            <textarea id="txt">输入您的个人描述</textarea>
         </div>
         <input type="button" value="确认提交" class="submitBtn">
     </form>
