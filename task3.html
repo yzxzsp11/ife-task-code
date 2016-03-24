@@ -1,0 +1,107 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task3三栏式（中间自适应）布局</title>
+    <style>
+        .bg{
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            background-color: #eee;
+            border:1px solid #999;
+            overflow: auto;
+            /*缩小窗口时*/
+            min-width: 600px;
+        }
+        .introduction,.logo,.teamName{
+            background-color: white;
+            border:1px solid #999;
+        }
+        .teamName{
+            float: left;
+            padding: 20px;
+            width: 200px;
+            box-sizing: border-box;
+        }
+        .teamName .logoImg{
+            width: 80px;
+            height: 80px;
+            background-color: #eee;
+            border: 1px solid dimgrey;
+        }
+        .introduction{
+            width: auto;
+            height: auto;
+            padding: 20px;
+            margin-left: 220px;
+            margin-right: 140px;
+            /*min-width:600px;*/
+        }
+        .logo{
+            float: right;
+            width: 120px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .logo .personLogo{
+            margin-top: 20px;
+            width: 80px;
+            height: 80px;
+            border:1px solid #999;
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg">
+    <!--float的div放在前面-->
+    <div class="teamName">
+        <span>
+            <h3>团队名称</h3>
+        </span>
+        <div class="logoImg">
+            <h4>团队logo</h4>
+        </div>
+    </div>
+
+    <div class="logo">
+        <div class="personLogo">
+            <h4>个人logo</h4>
+        </div>
+        <div class="personLogo">
+            <h4>个人logo</h4>
+        </div>
+        <div class="personLogo">
+            <h4>个人logo</h4>
+        </div>
+        <div class="personLogo">
+            <h4>个人logo</h4>
+        </div>
+        <div class="personLogo">
+            <h4>个人logo</h4>
+        </div>
+        <div class="personLogo">
+            <h4>个人logo</h4>
+        </div>
+    </div>
+    <div class="introduction">
+        <h2>hdu小分队</h2>
+        <h3>团队介绍</h3>
+        <p>
+            来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自
+            d来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu
+            来自hdu来自hdu来自hdu来自hdu来自hdu
+            来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu来自hdu
+        </p>
+        <h3>
+            队员介绍
+        </h3>
+        <p>
+            有时间再更新哈╭(′▽`)╭(′▽`)╯
+        </p>
+    </div>
+</div>
+</body>
+</html>
