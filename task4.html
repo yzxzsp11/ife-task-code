@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--任务目标-->
+    <!--实践HTML/CSS布局方式-->
+    <!--深入了解position等CSS属性-->
+
+    <!--任务描述-->
+    <!--实现如 示例图（点击打开） 的效果-->
+    <!--灰色元素水平垂直居中，有两个四分之一圆位于其左上角和右下角。-->
+
+    <!--任务注意事项-->
+    <!--思考不同情况下（如灰色高度是根据内容动态变化的）水平垂直居中的解决方案。-->
+    <!--动手试一试各种情况的组合，父元素和子元素分别取不同的 position 值。思考 position 属性各种取值的真正含义，尤其是 absolute 究竟是相对谁而言的。-->
+    <!--注意测试不同情况，尤其是极端情况下的效果。-->
+    <!--调节浏览器宽度，灰色元素始终水平居中。-->
+    <!--调节浏览器高度，灰色元素始终垂直居中。-->
+    <!--调节浏览器高度和宽度，黄色扇形的定位始终准确。-->
+    <!--其他效果图中给出的标识均被正确地实现，错一项扣一分。-->
+    <meta charset="UTF-8">
+    <title>Task4</title>
+    <style>
+        *{
+            padding: 0;
+            margin:0;
+        }
+        /*垂直居中方法一*/
+        .main{
+            position: absolute;
+            background-color: #ccc;
+            left: 25%;
+            right: 25%;
+            top: 25%;
+            bottom:25%;
+        }
+        .main .round1{
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #fc0;
+            border-radius: 0 0 100% 0;
+        }
+        .main .round2{
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #fc0;
+            right: 0;
+            bottom: 0;
+            border-radius: 100% 0 0 0 ;
+        }
+        /*方法二*/
+        /*.main2{*/
+            /*position: absolute;*/
+            /*width: 400px;*/
+            /*height: 200px;*/
+            /*left: 50%;*/
+            /*top:50%;*/
+            /*margin-left: -200px;*/
+            /*margin-top: -100px;*/
+            /*background-color:#ccc;*/
+        /*}*/
+        /*方法三table*/
+        .wrap{
+            width: 100%;
+            height: 100%;
+            display: table;
+        }
+        .wrap .content{
+            display: table-cell;
+            vertical-align:middle;
+        }
+        .inner{
+            width: 400px;
+            height: 200px;
+            background-color: #ccc;
+            position: relative;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        .inner .left{
+            width: 50px;
+            height: 50px;
+            background-color: #fc0;
+            position: absolute;
+            border-radius: 0 0 100% 0;
+        }
+        .inner .right{
+            width: 50px;
+            height: 50px;
+            background-color: #fc0;
+            position: absolute;
+            border-radius: 100% 0 0 0;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<!--方法1和2-->
+    <!--<div class="main">-->
+        <!--<div class="round1"></div>-->
+        <!--<div class="round2"></div>-->
+    <!--</div>-->
+<!--方法3-->
+    <div class="wrap">
+        <div class="content">
+            <div class="inner">
+                <div class="left"></div>
+                <div class="right"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
