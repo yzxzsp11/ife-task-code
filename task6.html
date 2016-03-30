@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--任务目的-->
+
+    <!--深入掌握CSS中的字体、背景、颜色等属性的设置-->
+    <!--进一步练习CSS布局-->
+    <!--任务描述-->
+
+    <!--参考 PDS设计稿（点击下载），实现页面开发，要求实现效果与 样例（点击查看） 基本一致-->
+    <!--页面中的各字体大小，内外边距等可参看 标注图（点击查看）-->
+    <!--页面宽度固定（定宽）-->
+    <!--任务注意事项-->
+
+    <!--只需要完成HTML，CSS代码编写，不需要写JavaScript-->
+    <!--设计稿中的图片、文案均可自行设定-->
+    <!--在Chrome中完美实现符合标注中的各项说明-->
+    <!--有能力的同学可以尝试跨浏览器的兼容性-->
+    <!--有能力的同学可以在实现一遍后尝试用less, sass或者stylus等再实现一次-->
+    <meta charset="UTF-8">
+    <title>Task5 模拟报纸排版</title>
+    <style>
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form,
+        fieldset, input, textarea, p, blockquote, th, td {
+            padding: 0;
+            margin: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        fieldset, img {
+            border: 0;
+        }
+
+        address, caption, cite, code, dfn, em, strong, th, var {
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        ol, ul {
+            list-style: none;
+        }
+
+        caption, th {
+            text-align: left;
+        }
+
+        q:before, q:after {
+            content: '';
+        }
+        abbr, acronym {
+            border: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        body {
+            position: relative;
+            padding-top: 100px;
+            height: 1500px;
+            font: 12px 'Microsoft YaHei', Helvetica, Arial;
+            background-color: #e8e8e8;
+        }
+
+        /*page*/
+        .wrapBox:before{
+            background-color: red;
+            content: '';
+            width: 45%;
+            height: 1384px;
+            box-shadow: -10px 0px 10px rgba(122,122,122,0.7);
+            top:102px;
+            left:154px;
+            bottom:10px;
+            /*transform: rotate(90deg);*/
+            z-index: -1;
+            position: absolute;
+
+        }
+        .wrapBox:after{
+            height: 1384px;
+            background-color:bisque;
+            content: '';
+            right:154px;
+            width: 45%;
+            box-shadow: 10px 0px 10px rgba(122,122,122,0.7);
+            top:103px;
+            bottom:10px;
+            /*transform: rotate(90deg);*/
+            position: absolute;
+            z-index: -1;
+        }
+        .wrapBox{
+            box-shadow:0 1px 4px rgba(0, 0, 0,0.3),0 0 40px rgba(0, 0, 0, 0.1) inset;
+            /*width: 892px;*/
+            width: 980px;
+            box-sizing:border-box;
+            height: 1386px;
+            margin: 0 auto;
+            padding: 10px 43px 10px 43px ;
+            background-color: whitesmoke;
+        }
+        /*页眉*/
+        .wrapBox .topBox{
+            position: relative;
+            border-bottom: 2px solid #938e8c;
+            width: 892px;
+
+        }
+        .wrapBox .topBox .left{
+            position: relative;
+            background-color: #cc1944;
+            width: 110px;
+            height: 61px;
+        }
+        .wrapBox .topBox .left a{
+            position: absolute;
+            display: block;
+            color: white;
+            font-size: 12px;
+            font-family: 黑体;
+            bottom: 5px;
+            left:5px;
+        }
+        .wrapBox .topBox span{
+            font-size:12px;
+            font-family: 黑体;
+            color: #d45d5c;
+            position: absolute;
+            right: 5px;
+            bottom:5px;
+        }
+        /*中间内容*/
+        .contentBox{
+            margin-top: 20px;
+        }
+        /*上方文章text1*/
+        .contentBox .text1Right{
+            float: right;
+            width: 203px;
+            border-top: 2px solid #cc8091;
+        }
+        .contentBox .text1Left{
+            position: relative;
+            width: 642px;
+        }
+        #img1{
+            width: 642px;
+            height: 301px;
+        }
+        .cover1{
+            width: 200px;
+            height: 301px;
+            position: absolute;
+            top:0;
+            left: 0;
+            background-color: #abc2a4;
+        }
+        .cover2{
+            width: 200px;
+            height: 301px;
+            position: absolute;
+            left: 442px;
+            top:0;
+            background-color: #e5bdbe;
+        }
+        .opacity{
+            opacity: 0.5;
+            filter: alpha(opacity:50);
+        }
+        .wrapBox .contentBox .text1 .text1Right a{
+            font-size: 24px;
+            text-decoration:underline;
+            color: #030000;
+            display: block;
+        }
+        .text1Right .b1{
+            font-size: 116px;
+            color: #75b86b;
+            font-family: "Microsoft Sans Serif";
+            font-style: italic;
+            margin-left: -15px;
+        }
+        .text1Right .span1{
+            font-size:55px;
+            color: #cc8091;
+            font-family: "Microsoft Sans Serif";
+        }
+        .text1Right .miniText{
+            margin-left: 10px;
+            font-size: 12px;
+            display: inline-block;
+        }
+        .text1Right .span2{
+            font-size: 21px;
+            color: #cc8091;
+            font-family: "Microsoft Sans Serif";
+        }
+        .text1Right .span3{
+            color: #b2b2b2;
+            font-family: "Microsoft Sans Serif";
+        }
+        .text1Left .textBox{
+
+        }
+        /*what小段*/
+        .textBox .list1{
+            vertical-align: top;
+            display: inline-block;
+            font-family: "Microsoft Sans Serif";
+            width: 210px;
+            line-height: 15px;
+        }
+        .textBox .list1 .dt1{
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: underline;
+            color: #428c59;
+        }
+        .textBox .list1 .dd1{
+            margin-top: 10px;
+            margin-right: 10px;
+            opacity: 0.7;
+            filter:alpha(opacity:70);
+        }
+        .text1Right .lineHeight{
+            line-height: 12px;
+        }
+        .text1Left .numBox{
+            margin-top: 15px;
+            margin-left: 15px;
+        }
+        .text1Left .numBox .numBoxText{
+            font-size: 13px;
+            display: block;
+            margin-top: 5px;
+        }
+        .text1Left .numBox .numBoxText i{
+            vertical-align: middle;
+            margin-left: 5px;
+            color: #428c59;
+        }
+        #fontColor1{
+            color: #d2994f;
+        }
+        #fontColor2{
+            color: #cc7680;
+        }
+        /*text2*/
+        .wrapBox .text2{
+            font-family: "Microsoft Sans Serif";
+            margin-top: 20px;
+        }
+        .text2 .text2Left{
+            width: 415px;
+            float: left;
+            /*display: inline-block;*/
+        }
+        .text2 .text2Left .title{
+            padding-bottom: 10px;
+            border-bottom: 2px solid #11456b;
+        }
+        .text2 .text2Left .b2{
+            font-size: 72px;
+            color:#f5e327 ;
+        }
+        .text2 .text2Left .b3{
+            line-height: 1.2em;
+            font-size: 42px;
+            color: #11456b;
+        }
+        .text2 .text2Left .b4{
+            line-height: 1.3em;
+            font-size: 33px;
+            color: #11456b;
+        }
+        .text2 .text2Left .textMid{
+            padding-top: 10px;
+        }
+        .text2 .text2Left .textMid .firstWord{
+            /*display: inline-block;*/
+            float: left;
+            font-size: 70px;
+            color: #f5e327;
+        }
+        #img2{
+            width: 165px;
+            height: 288px;
+            float: right;
+            margin: 10px;
+        }
+        .text2 .text2Left .textMid .fontSize{
+            /*display: inline-block;*/
+            font-size: 13px;
+            line-height: 1.4em;
+
+        }
+        /*text2右边*/
+        .text2 .text2Right{
+            height: 767px;
+            position: relative;
+            padding-left: 445px;
+        }
+        #img3{
+            width: 458px;
+            height: 275px;
+        }
+        .text2 .text2Right .belowPic{
+            position: absolute;
+            width: 458px;
+            bottom: 3px;
+            background-color: rgba(134,126,120,0.3);
+            /*background-color: #867e78;*/
+            /*opacity: 0.3;*/
+            /*filter:alpha(opacity:30);*/
+            height: 64px;
+        }
+        .text2Right .blankSpan{
+            display: inline-block;
+            width: 50px;
+            height: 44px;
+            border-right: 3px solid #72b16a;
+            margin-top: 12px;
+        }
+        .text2Right .belowPicTitle{
+            vertical-align: 40%;
+            font-size: 26px;
+            color: #ffffff;
+            opacity: 0.8;
+            filter:alpha(opacity:80);
+            display: inline-block;
+            margin-left:20px;
+        }
+        .text2Right .belowPicTitle2{
+            color: #9529aa;
+            font-size: 12px;
+            vertical-align: 110%;
+            margin-left:10px;
+            opacity: 0.8;
+            filter:alpha(opacity:80);
+            display: inline-block;
+        }
+        .img{
+            position: relative;
+        }
+        /*右下角小块*/
+        .text2Right .rightBottomBox{
+            position: relative;
+            height: 465px;
+            /*box-sizing: border-box;*/
+            /*padding-top: 20px;*/
+            margin-top: 20px;
+        }
+        .text2Right .rightBottomBox .List2{
+            position: absolute;
+            top:40px;
+        }
+        .text2Right .rightBottomBox .ulList li{
+            background: url("http://kkx520.github.io/code-baby/task6/images/icon-1.png") no-repeat left center;
+            width: 458px;
+            height: 60px;
+            font-size: 18px;
+            line-height: 60px;
+        }
+        .ulList li span{
+            margin-right: 15px;
+            float: right;
+        }
+        .ulList li p{
+            margin-left: 20px;
+            display: inline-block;
+        }
+        /*bottomLeftBox*/
+        .text2Right .rightBottomBox{
+            /*position: absolute;*/
+            bottom: 0;
+            left:0;
+            width: 460px;
+            background-color: #eeedd6;
+        }
+        .text2Right .rightBottomBox .bottomLeftBox{
+            top:118px;
+            position: relative;
+            /*width: 198px;*/
+            height: 348px;
+        }
+        .text2Right .rightBottomBox .bottomLeftBox .titleNum{
+            position: absolute;
+            bottom: 0;
+            width: 260px;
+            height:162px;
+            background-color: #d45d5c;
+            font-size: 110px;
+            color: #ffffff;
+        }
+        .titleNum .zero{
+            display: inline;
+            line-height: 162px;
+            margin-left: 10px;
+            height: 86px;
+            border-right: 2px solid #FFFFFF;
+        }
+        .titleNum .topWord{
+            position: absolute;
+            top:25px;
+            left: 80px;
+            font-size: 18px;
+            color: #ffffff;
+        }
+        .titleNum .helloWord{
+            display: inline;
+            font-size: 14px;
+            color: #ffffff;
+        }
+        .bottomRightBox {
+            margin-top: -40px;
+            height:150px;
+            width: 190px;
+            font-size: 14px;
+            color: #5a5a5b;
+            font-style: italic;
+            float: right;
+        }
+        .bottomRightBox .icon1{
+            display: inline-block;
+            /*background: url(http://kkx520.github.io/code-baby/task6/images/icon-2.png) repeat-x;*/
+            background-color: #0aa9c1;
+            width: 20px;
+            height: 22px;
+            float: left;
+            margin-right: 16px;
+        }
+        .bottomRightBox .icon2{
+              display: inline-block;
+            background: url(http://kkx520.github.io/code-baby/task6/images/icon-2.png) repeat-x;
+            /*background-color: #0aa9c1;*/
+            width: 20px;
+            height: 22px;
+            float: right;
+            margin-top: 110px;
+        }
+        .bottomRightBox span{
+            display: block;
+            font-style: italic;
+            font-size: 14px;
+        }
+        /*页脚*/
+        .footerBox{
+            margin-top: 20px;
+            position: relative;
+            border-top: 2px solid #938e8c;
+            width: 900px;
+            padding-top: 5px;
+        }
+        .footerBox .footTip{
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapBox">
+    <!--页眉-->
+    <div class="topBox">
+        <div class="left">
+            <a href="http://ife.baidu.com">ife.baidu.com</a>
+        </div>
+        <span>2016.03.29</span>
+    </div>
+    <!--中间内容-->
+    <div class="contentBox">
+        <div class="text1">
+            <div class="text1Right">
+                <a href="#">About<br/>Technology</a>
+                <i class="lineHeight">About technology about technology about technology</i>
+                <strong class="b1">700</strong>
+                <span class="span1">3.2</span>
+                <div class="miniText">
+                    <span class="span2">CSS</span><br/>
+                    <span class="span3">csscsscsscsscss</span>
+                </div>
+            </div>
+            <div class="text1Left">
+                <img src="http://7xr10n.com1.z0.glb.clouddn.com/%E4%BB%A3%E7%A0%81%E4%B9%A6%E5%86%99%E6%83%85%E8%AF%97.jpg" id="img1">
+                <span class="cover1 opacity"></span>
+                <span class="cover2 opacity"></span>
+                <div class="textBox">
+                    <dl class="list1">
+                        <dt class="dt1">What</dt>
+                        <dd class="dd1">前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端</dd>
+                    </dl>
+                    <dl class="list1">
+                        <dt class="dt1"id=fontColor1>When</dt>
+                        <dd class="dd1">前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端</dd>
+                    </dl>
+                    <dl class="list1">
+                        <dt class="dt1"id=fontColor2>Where</dt>
+                        <dd class="dd1">前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            <div class="numBox">
+                                <span class="numBoxText">What------<i>40%</i></span>
+                                <span class="numBoxText">What------<i>40%</i></span>
+                                <span class="numBoxText">What------<i>20%</i></span>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="text2">
+            <div class="text2Left">
+                <div class="title">
+                    <strong class="b2"><i>THE</i></strong>
+                    <strong class="b3">TECHNOLOGY OF FONT</strong>
+                    <br/>
+                    <strong class="b4">前端技术领域</strong>
+                </div>
+                <div class="textMid">
+                    <span class="firstWord"><strong >前</strong></span>
+                    <span class="fontSize">
+                        <p>前端前端前端前端前端前端前端前端前端前端前端前端
+                        前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                        前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前前端前
+                        </p>
+                       <img src="http://7xr10n.com1.z0.glb.clouddn.com/%E4%BB%A3%E7%A0%81%E4%B9%A6%E5%86%99%E6%83%85%E8%AF%97.jpg" id="img2">
+                        <p>前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端前端前端前端前端前端前端前端前端前端前端前端前端前端
+                            前端
+                           </p>
+                    </span>
+                </div>
+            </div>
+            <div class="text2Right">
+                <div class="img">
+                    <img src="http://7xr10n.com1.z0.glb.clouddn.com/%E4%BB%A3%E7%A0%81%E4%B9%A6%E5%86%99%E6%83%85%E8%AF%97.jpg"
+                         id="img3">
+                    <div class="belowPic">
+                        <div class="blankSpan"></div>
+                        <div class="belowPicTitle">
+                            <h3>前端技术</h3>
+                        </div>
+                        <div class="belowPicTitle2">
+                            <i>前端技术前端技术</i>
+                        </div>
+                    </div>
+                </div>
+                <div class="rightBottomBox">
+                    <div class="List2">
+                        <ul class="ulList">
+                            <li><p>前端前端前端前端...........................................</p><span>前端</span></li>
+                            <li><p>前端前端...........................................</p><span>前端</span></li>
+                            <li><p>前端前端前端前端...........................................</p><span>前端</span></li>
+                        </ul>
+                    </div>
+                    <div class="bottomLeftBox">
+                        <div class="titleNum">
+                            <span class="zero">0</span>
+                            <span class="topWord">
+                                <strong><i>ONE TWO</i></strong>
+                                <br/>
+                                <strong><i>THREE FOUR  FIVE</i></strong>
+                                <br/>
+                                <br/>
+                                <span class="helloWord"><i>hello word hello word hello word hello word hello word</i></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="bottomRightBox">
+                        <div class="icon1"></div>
+                        <div class="icon2"></div>
+                        <span>hello word hello word hello word hello word hello word
+                            hello word hello word hello word hello word hello word
+                            hello word hello word hello word hello word hello word hello word hello word
+                         word hello  word </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--页脚-->
+    <div class="footerBox">
+        <span class="footTip">ife.baidu.com &copy xuhang</span>
+    </div>
+</div>
+</body>
+</html>
