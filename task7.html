@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--任务目的-->
+
+    <!--通过实现一个常见的技术产品官网，加深对于HTML，CSS的实战能力-->
+    <!--学习掌握如何在没有标注的情况下实现设计稿到页面的精确转变-->
+    <!--任务描述-->
+
+    <!--通过HTML及CSS实现设计稿 设计稿PSD文件（点击下载），效果如 效果图（点击打开）-->
+    <!--设计稿是有一定宽度的，这个宽度为页面的最小宽度，也就是说，当浏览器窗口宽度小于设计稿宽度时，允许出现横向滚动条，页面内容宽度保持不变，但是当浏览器窗口宽度大于设计稿宽度时，页面部分内容的宽度应该保持和浏览器窗口宽度一致，具体哪些部分题目不做具体指明，看看大家的判断如何。-->
+    <!--任务注意事项-->
+
+    <!--只需要完成HTML，CSS代码编写，不需要写JavaScript-->
+    <!--设计稿中的图片、文案均可自行设定-->
+    <!--在Chrome中完美实现与设计稿的各项字体、布局、内外边距等样式-->
+    <!--有能力的同学可以尝试跨浏览器的兼容性-->
+    <!--有能力的同学可以在实现一遍后尝试用less, sass或者stylus等再实现一次-->
+    <meta charset="UTF-8">
+    <title>Task7</title>
+    <style>
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form,
+        fieldset, input, textarea, p, blockquote, th, td {
+            padding: 0;
+            margin: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        fieldset, img {
+            border: 0;
+        }
+
+        address, caption, cite, code, dfn, em, strong, th, var {
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        ol, ul {
+            list-style: none;
+        }
+
+        caption, th {
+            text-align: left;
+        }
+
+        q:before, q:after {
+            content: '';
+        }
+        abbr, acronym {
+            border: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        body {
+            font: 12px 'Microsoft YaHei', Helvetica, Arial;
+            /*background-color: #e8e8e8;*/
+        }
+
+        /*page*/
+        *{
+            box-sizing: border-box;
+        }
+        .wrapBox{
+            min-width: 840px;
+        }
+        /*a,*/
+        /*a:link,*/
+        /*a:visited,*/
+        /*a:hover,*/
+        /*a:active {*/
+            /*color: #cc1944;*/
+            /*text-decoration: none*/
+        /*}*/
+        /*导航条*/
+        .flexBox{
+            -webkit-display:-webkit-flex;
+            display: flex;
+            flex-direction:row;
+            -webkit-justify-content: center;
+            justify-content:center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+        .wrapBox .navigation{
+            justify-content: center;
+            /*min-width: 1200px;*/
+            padding: 15px 50px 0 50px;
+            width: 100%;
+            height:68px;
+            background-color: whitesmoke;
+        }
+        .navLeft {
+            display: inline-block;
+            height: 100%;
+        }
+        .navLeft img{
+            vertical-align: middle;
+            display: inline-block;
+            width: 35px;
+            height:31px;
+        }
+        .navLeft span{
+            cursor: pointer;
+            vertical-align: middle;
+            font-size: 21px;
+            font-weight: 200;
+        }
+        .navRight{
+            height: 100%;
+            display: inline-block;
+        }
+        .navRight ul{
+            height:100% ;
+        }
+        .navRight ul li{
+            margin-top: 5px;
+            padding: 5px 16px;
+            font-size: 15px;
+            line-height: 100%;
+            display: inline-block;
+        }
+        .navRight ul li a{
+            transition: color 0.4s ease-out 0.2s;
+            color: #999;
+        }
+        .navRight ul li:hover{
+            color: red;
+            border-bottom: 4px solid red;
+            transition: border-bottom 0.4s ease-out 0.2s;
+        }
+        .navRight ul li a:hover{
+            color: red;
+        }
+        .blankDiv{
+            height: 100%;
+            width: 540px;
+            display: flex;
+            flex:1;
+        }
+        .navRight .login{
+            background: url(http://vincentcope.github.io/IFE2016/stage1/task7/img/task7-signin.png) no-repeat 6px -13px;
+            width: 72px;
+        }
+        .login a{
+            margin-left: 10px;
+        }
+        /*content*/
+        .banner{
+            width: 100%;
+            /*height: 700px;*/
+            height:calc(100vmin);
+            background: url(http://cherry037.github.io/task7/images/section_1.jpg) no-repeat;
+            background-size: cover;
+        }
+        .banner .mask{
+            display: table;
+            width: 100%;
+            height: 100%;
+        }
+        .banner .mask .intro{
+            display: table-cell;
+            font-size: 21px;
+            color: #fff;
+            vertical-align: middle;
+            padding-left: 120px;
+        }
+        .mask .intro h1{
+            padding-bottom: 30px;
+            font-size: 60px;
+        }
+        .mask .intro p{
+            display: block;
+            height: 30px;
+            margin-left: 10px;
+        }
+        .mask button{
+            margin-top: 50px;
+            border-radius: 5px;
+            border-style:none;
+            color: #fff;
+            outline: none;
+            width: 320px;
+            height: 70px;
+            font-size: 21px;
+            background-color: red;
+            transition: all 1s;
+            cursor: pointer;
+        }
+        .mask button:hover{
+            opacity: 0.5;
+            filter:alpha(opacity:50);
+        }
+        /*section1*/
+        .section1{
+            min-width: 1100px;
+            width: 100%;
+            height: 260px;
+        }
+        .section1 ul{
+            height: 100%;
+            display: flex;
+        }
+        .section1 ul li{
+            display: flex;
+            flex:1;
+        }
+        .section1 ul li span{
+            line-height: 20px;
+            text-align: center;
+            display: block;
+            width: 210px;
+            height: 40px;
+            font-size: 14px;
+            color: #808080;
+            margin: 130px 0 0 100px;
+            padding-right: 50px;
+            border-right: 2px solid #8c8c8c;
+        }
+        .section1 .img1{
+            background: url(http://cherry037.github.io/task7/images/circle.png) no-repeat 156px 50px ;
+        }
+        .section1 .img2{
+            background: url(http://cherry037.github.io/task7/images/square.png) no-repeat 156px 50px;
+        }
+        .section1 .img2>span{
+            border-right: none;
+        }
+        /*section2*/
+        .section2{
+            padding: 30px 0 30px 0;
+            background-color: #ededec;
+            width: 100%;
+            flex:1;
+            flex-flow: column;
+        }
+        .section2 span{
+            padding-top:20px;
+            font-size:27px;
+            color: #8c8c8c;
+        }
+        /*section3*/
+        .section3{
+            height: 480px;
+            width: 100%;
+            flex: 1;
+            flex-flow: column;
+            background: url(http://codehz.github.io/ife-z07/image/bg_map.jpg) no-repeat ;
+            z-index: -1;
+        }
+        .section3 .tips{
+            position: relative;
+            margin-top: -200px;
+            color: white;
+            font-size: 30px;
+        }
+        .section3 .tips:after{
+            position: absolute;
+            content: '';
+            width: 100px;
+            height:20px ;
+            border-bottom: 4px solid white;
+            left: 290px;
+            bottom: -5px;
+        }
+        /*.section3 .title{*/
+            /*display: block;*/
+        /*}*/
+        .section3 .description{
+            display:block;
+            font-size: 19px;
+            color: white;
+            margin-top: 50px;
+        }
+        .section3 .selectArea{
+            padding-top: 30px;
+            width: 100%;
+            flex: 1;
+        }
+        .section3 .selectArea .select{
+            border: 2px solid white ;
+            /*box-sizing: content-box;*/
+            cursor: pointer;
+            outline: none;
+            margin-left: 30px;
+            width: 200px;
+            height: 36px;
+            background: url(http://codehz.github.io/ife-z07/image/dropdown.png)no-repeat 170px  white;
+        }
+        .section3 .selectBox{
+            outline: none;
+            position: relative;
+            height: 41px;
+        }
+        .section3 .selectBox:focus>.select{
+            border: 2px solid #c00 ;
+        }
+        .section3 .selectBox:focus > .option{
+            position: absolute;
+            display: block;
+            background-color: #dadada;
+            width: 200px;
+            left: 30px;
+            border-style: none solid solid solid;
+            border-color: #c00;
+            border-width: 2px;
+        }
+        .section3 .selectBox:focus > .option li{
+            font-size: 13px;
+            padding:20px 20px 10px 20px;
+        }
+        .option li:hover{
+            background-color: #de0000;
+            cursor: pointer;
+            color:white;
+            transition: background-color ease-out 1.5s;
+        }
+        .selectBox> .option{
+            position: absolute;
+            display: none;
+        }
+        .select:before{
+            margin-left: 10px;
+            content: attr(selected);
+            line-height: 36px;
+            color: #aaa;
+        }
+        .selectArea .button{
+            /*padding: 0;*/
+            margin-top: -5px;
+            margin-left: 30px;
+            border-style: none;
+            width: 200px;
+            height: 36px;
+            background-color: red;
+            color: white;
+            cursor: pointer;
+            outline:none;
+            transition:all ease-out 1s;
+        }
+        .selectArea .button:hover{
+            opacity: 0.5;
+            filter:alpha(opacity:50);
+        }
+        /*section4*/
+        .section4{
+            width: 100%;
+            height: 505px;
+            flex:2 1;
+            padding-top:70px ;
+            background-color: #eee;
+        }
+        .section4 .img1{
+            margin: -50px 0 0 75px;
+            flex-direction: column;
+
+        }
+        .section4 .imgBox{
+            cursor: pointer;
+            overflow: hidden;
+            border: 1px solid #aeaeae;
+            border-radius: 3px;
+            padding: 10px;
+            background-color: whitesmoke;
+        }
+        .section4 .img1 img{
+            transition:all ease-out 1s;
+        }
+        .section4 .img1 img:hover{
+            transform: scale(1.5);
+        }
+        .section4 .title{
+            line-height: 30px;
+            font-size: 18px;
+        }
+        .section4 .content{
+            line-height: 22px;
+            font-size: 13px;
+            color: #808080;
+        }
+        /*section5*/
+        .section5{
+            flex:1 1;
+            width: 100%;
+        }
+        .section5 .imgLeft{
+            position: relative;
+            flex-direction:column;
+            flex:1;
+            background: url("http://cherry037.github.io/task7/images/middle-left.jpg")no-repeat;
+            height: 575px;
+            width: 66%;
+        }
+        /*小三角形状*/
+        .imgLeft:after{
+            position: absolute;
+            content: '';
+            width: 0;
+            height: 0;
+            border-width: 40px 40px 40px 0;
+            border-style: solid;
+            border-color:   transparent #ffffff transparent  transparent;
+            right: 0;
+            top: 50%;
+            margin-top: -40px;
+        }
+        .imgLeft .title{
+            font-size: 48px;
+            color: white;
+        }
+        .imgLeft .subTitle{
+            font-size: 128px;
+            color: white;
+            line-height: 128px;
+        }
+        .imgLeft .description{
+            font-size: 24px;
+            line-height: 44px;
+            color: white;
+            text-align: center;
+        }
+        .section5 .rightContent{
+            flex-direction: column;
+            flex:0 1 auto;
+            width: 34%;
+            height: 575px;
+        }
+        .rightContent .title{
+            font-size: 22px;
+            line-height: 42px;
+        }
+        .rightContent .title:after{
+            content: attr(data-num);
+            background: url(http://codehz.github.io/ife-z07/image/sep.png) no-repeat left;
+            width: 100px;
+            padding-left:30px;
+            line-height: 80px;
+            color: red;
+        }
+        .rightContent .description{
+            width: 200px;
+            font-size: 12px;
+            line-height: 22px;
+            color: #a2a2a2;
+        }
+        .rightContent .btn{
+            background-color:white ;
+            font-size: 15px;
+            color: red;
+            cursor: pointer;
+            border: 2px solid red;
+            border-radius: 5px;
+            width: 100px;
+            line-height: 30px;
+            margin-top: 80px;
+            transition:all ease-out 1.1s;
+        }
+        .rightContent .btn:hover{
+            background-color: red;
+            color: white;
+        }
+        .rightContent .tab {
+            margin-top: 50px;
+        }
+        .rightContent .tab span{
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 12px;
+            border: 2px solid #aaa;
+            background: #fff;
+            margin:0 12px;
+            cursor: pointer;
+        }
+        /*section6*/
+        .section6{
+            margin-top: -9px;
+            flex:0 1 auto;
+            width: 100%;
+            /*height: 500px;*/
+        }
+        .section6 .left{
+            position: relative;
+            height: 500px;
+            flex: 1;
+            /*width: 200px;*/
+            flex-direction: column;
+            background-color: rgba(255,0,0,0.76);
+        }
+        .section6 .left .title{
+            text-align: center;
+            font-size: 20px;
+            line-height: 30px;
+            color: white;
+        }
+        .section6 .left .title:after{
+            content: '';
+            width: 40px;
+            margin-left: -20px;
+            border: 2px solid white;
+            position: absolute;
+            top:250px;
+            left: 215px;
+            transition: all ease-out 1.2s;
+        }
+        .section6 .left:hover> .title:after{
+            margin-left: -50px;
+            width: 100px;
+        }
+        .section6 .left button{
+            background: transparent;
+            font-size: 15px;
+            color: white;
+            cursor: pointer;
+            border: 2px solid white;
+            border-radius: 5px;
+            width: 100px;
+            line-height: 30px;
+            margin-top: 80px;
+            transition:all ease-out 1.1s;
+        }
+        .section6 .left button:hover{
+            background-color: white;
+            color: red;
+        }
+        .section6 .mid{
+            flex: 1;
+            position: relative;
+            height: 500px;
+            /*width: 200px;*/
+            flex-direction: column;
+            background-color: white;
+        }
+        .section6 .mid .title{
+            text-align: center;
+            font-size: 20px;
+            line-height: 30px;
+            color: #555555;
+        }
+        .section6 .mid .title:after{
+            content: '';
+            width: 40px;
+            margin-left: -20px;
+            border: 2px solid #555555;
+            position: absolute;
+            top:250px;
+            left: 215px;
+            transition: all ease-out 1.2s;
+        }
+        .section6 .mid:hover> .title:after{
+            margin-left: -50px;
+            width: 100px;
+        }
+        .section6 .mid button{
+            background: transparent;
+            font-size: 15px;
+            color: red;
+            cursor: pointer;
+            border: 2px solid red;
+            border-radius: 5px;
+            width: 100px;
+            line-height: 30px;
+            margin-top: 80px;
+            transition:all ease-out 1.1s;
+        }
+        .section6 .mid button:hover{
+            background-color: red;
+            color: white;
+        }
+        .section6 .right{
+            flex: 1;
+            background: url(http://codehz.github.io/ife-z07/image/img03.jpg) no-repeat right;
+            position: relative;
+            height: 500px;
+            /*width: 200px;*/
+            margin-left: -25px;
+        }
+        /*小三角*/
+        .section6 .right:before{
+            position: absolute;
+            content: '';
+            /*width: 100px;*/
+            /*height: 100px;*/
+            border-width: 40px 0 40px 40px;
+            border-style: solid;
+            border-color:   transparent transparent  transparent #ffffff;
+            left: 0;
+            top: 50%;
+            margin-top: -40px;
+        }
+        /*section7*/
+        .section7{
+            width: 100%;
+            flex: 1 1;
+            /*height: 400px;*/
+            flex-direction: column;
+        }
+        .section7 .head{
+            flex-direction: column;
+            height: 400px;
+        }
+        .section7 .head .title{
+            text-align: center;
+            font-size: 30px;
+            line-height: 50px;
+            color: #555555;
+        }
+        .section7 .head .description{
+            text-align: center;
+            width: 400px;
+            font-size: 15px;
+            line-height: 23px;
+            color: #a2a2a2;
+        }
+        /*section8*/
+        .section8{
+            width: 100%;
+            flex:1;
+            padding-bottom: 150px;
+        }
+        .section8 .formBox {
+            width: 100%;
+        }
+        .section8 .formBox .leftBox{
+            flex-direction: column;
+            /*flex:1;*/
+            width: 400px;
+        }
+        .section8 .formBox .leftBox div{
+            position: relative;
+            width: 300px;
+        }
+        .section8 .formBox .leftBox .title{
+            display: block;
+            font-size: 20px;
+            line-height: 60px;
+        }
+        .section8 .formBox .leftBox .detail{
+            display: block;
+            font-size: 14px;
+            line-height: 20px;
+            color: #a4a4a4;
+        }
+        .detail:after{
+            position: absolute;
+            right: 0;
+            font-size: 14px;
+            padding-left: 20px;
+            content: 'more';
+            background: url(http://codehz.github.io/ife-z07/image/more.png)no-repeat left;
+        }
+        .section8 .formBox .rightBox{
+            /*padding-left: 50px;*/
+            /*background-color: #00b3ee;*/
+            width: 700px;
+        }
+        .section8 .formBox .rightBox div{
+            position: relative;
+            display: inline-block;
+            padding: 10px;
+        }
+        .section8 .formBox .rightBox div>input{
+            border: none;
+            background-color: #e7e7e7;
+            height: 40px;
+            width: 300px;
+        }
+        .section8 .formBox .rightBox .textArea{
+            /*border: none;*/
+            /*margin-left: 10px;*/
+            width: 95%;
+            height: 140px;
+            /*background-color:#e7e7e7 ;*/
+
+        }
+        .section8 .formBox .rightBox .textArea>textarea{
+            width: 97%;
+            height: 100%;
+            /*height: 140px;*/
+            resize: none;
+            border-style:none;
+            background-color:#e7e7e7 ;
+        }
+        .section8 .formBox .rightBox .textArea>textarea::-webkit-input-placeholder{
+            color: #5e5e5e;
+            line-height: 30px;
+        }
+        .section8 .formBox .rightBox div:after{
+            position: absolute;
+            /*background-color: #00b3ee;*/
+            content: attr(data-label);
+            color: #5e5e5e;
+            width: 60px;
+            height: 30px;
+            font-size: 13px;
+            line-height: 30px;
+            left: 13px;
+            top: 15px;
+            z-index: 2;
+        }
+        .section8 .formBox .rightBox .submit{
+            width: 95%;
+            height: 70px;
+        }
+        .section8 .formBox .rightBox .submit>button{
+            width: 97%;
+            height: 100%;
+            border: none;
+            background-color:#e7e7e7 ;
+            font-size: 18px;
+            color: #5e5e5e;
+        }
+        /*section9*/
+        .section9{
+            flex-direction: column;
+            width: 100%;
+            height: 560px;
+            background-color: #334;
+        }
+        .section9 .content{
+            flex-direction: column;
+        }
+        .section9 .content .title{
+            font-size: 34px;
+            line-height: 54px;
+            color: white;
+        }
+        .section9 .content .description{
+            text-align: center;
+            width: 500px;
+            font-size: 18px;
+            line-height: 26px;
+            color: white;
+        }
+        .section9 .content .subscription{
+            /*width: 500px;*/
+            margin-top: 50px;
+        }
+        .section9 .content .subscription form>input{
+            vertical-align: middle;
+            border: none;
+            width: 300px;
+            height: 40px;
+            font-size: 22px;
+        }
+        .section9 .content .subscription button{
+            background-color: #d10000;
+            color: white;
+            outline: none;
+            vertical-align: middle;
+            height: 40px;
+            border: none;
+            width: 80px;
+            cursor: pointer;
+            margin-left: 20px;
+            transition:all ease-out 1.2s;
+        }
+        .section9 .content .subscription button:hover{
+            background-color: white;
+            color: #f40000;
+        }
+        .section9 .content .subscription input::-webkit-input-placeholder{
+            font-size: 22px;
+            line-height: 30px;
+        }
+        .section9 .content .social{
+            text-align: center;
+            margin-top: 50px;
+            width: 400px;
+            height: 80px;
+        }
+        .section9 .content .social .logo{
+            display: inline-block;
+            height: 50px;
+            width: 70px;
+            background: url(http://codehz.github.io/ife-z07/image/s2.png)no-repeat left;
+        }
+        /*footer*/
+        .footerBox{
+            position: relative;
+            width: 100%;
+            height: 100px;
+            background-color: #223;
+
+        }
+        .footerBox .footDescription{
+            position: absolute;
+            color: white;
+            font-size: 20px;
+           line-height: 100px;
+            left: 10px;
+        }
+        .footerBox .top{
+            position: absolute;
+            right: 10px;
+            line-height: 100px;
+            font-size: 20px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapBox">
+        <div class="navigation flexBox">
+            <div class="navLeft">
+                <img src="http://chenbujuan.github.io/IFE-FirstStage-Task7/images/icon-1.png" alt="new world">
+                <span>新世界</span>
+            </div>
+            <div class="blankDiv"></div>
+            <div class="navRight">
+                <ul>
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">最新活动</a></li>
+                    <li><a href="#">项目介绍</a></li>
+                    <li><a href="#">爱心社区</a></li>
+                    <li><a href="#">关于我们</a></li>
+                    <li class="login"><a href="#" >登录</a></li>
+                </ul>
+            </div>
+        </div>
+        <!--content-->
+        <div class="banner">
+            <div class="mask">
+                <div class="intro">
+                    <h1>Time of new life</h1>
+                    <p>新时代,年轻的人们,我们一起</p>
+                    <p>体验新生活,享受新生活</p>
+                    <button>开始体验</button>
+                </div>
+            </div>
+        </div>
+        <div class="section1">
+            <ul>
+                <li class="img1">
+                    <span>打造全新的世界观,让你更爱你的生活</span>
+                </li>
+                <li class="img1">
+                    <span>打造全新的世界观,让你更爱你的生活</span>
+                </li>
+                <li class="img1">
+                    <span>打造全新的世界观,让你更爱你的生活</span>
+                </li>
+                <li class="img2">
+                    <span>完善的培养机制,培养你的全新世界观</span>
+                </li>
+            </ul>
+        </div>
+        <div class="section2 flexBox">
+            <img src="http://chenbujuan.github.io/IFE-FirstStage-Task7/images/icon-1.png" alt="new world">
+            <span>关于新世界,你不知道的还有什么?</span>
+        </div>
+        <div class="section3 flexBox">
+            <div class="flexBox tips">
+                <span class="title">查找新世界城市活动信息查找新世界城市活动信息</span>
+            </div>
+            <span class="description">每一个城市都有不同的活动信息,请自主查询你所要了解的城市</span>
+            <form>
+                <div class="selectArea flexBox">
+                    <div class="selectBox" tabindex="0">
+                        <div class="select" selected="中国" ></div>
+                        <ul class="option">
+                            <li>中国</li>
+                            <li>其他</li>
+                        </ul>
+                    </div>
+                    <div class="selectBox" tabindex="0">
+                        <div class="select" selected="省份" ></div>
+                        <ul class="option">
+                            <li>江苏省</li>
+                            <li>浙江省</li>
+                            <li>上海市</li>
+                            <li>北京市</li>
+                        </ul>
+                    </div>
+                    <div class="selectBox" tabindex="0">
+                        <div class="select" selected="城市" ></div>
+                        <ul class="option">
+                            <li>南京</li>
+                            <li>杭州</li>
+                            <li>浦东</li>
+                        </ul>
+                    </div>
+                    <button class="button">搜索</button>
+                </div>
+            </form>
+        </div>
+        <div class="section4 flexBox">
+            <div class="img1 flexBox">
+                <div class="imgBox">
+                     <img src="http://codehz.github.io/ife-z07/image/pic0.png" alt="img1">
+                </div>
+                <span class="title">北京活动</span>
+                <span class="content">新社区大联盟</span>
+            </div>
+            <div class="img1 flexBox">
+                <span class="title">北京活动</span>
+                <span class="content">新社区大联盟</span>
+                <div class="imgBox">
+                    <img src="http://codehz.github.io/ife-z07/image/pic0.png" alt="img1">
+                </div>
+            </div>
+            <div class="img1 flexBox">
+                <div class="imgBox">
+                    <img src="http://codehz.github.io/ife-z07/image/pic0.png" alt="img1">
+                </div>
+                <span class="title">北京活动</span>
+                <span class="content">新社区大联盟</span>
+            </div>
+            <div class="img1 flexBox">
+                <span class="title">北京活动</span>
+                <span class="content">新社区大联盟</span>
+                <div class="imgBox">
+                    <img src="http://codehz.github.io/ife-z07/image/pic0.png" alt="img1">
+                </div>
+        </div>
+    </div>
+        <div class="section5 flexBox">
+            <div class="imgLeft flexBox">
+                <span class="title">新世界</span>
+                <span class="subTitle">TIME</span>
+                <span class="description">@新世界-北京
+                    <br/>
+                    2016.4.4
+                </span>
+            </div>
+            <div class="rightContent flexBox">
+                <span class="title "data-num="01">新世界</span>
+                <span class="description">
+                    新世界新世界新世界新世界新世界新世界新世界新世界新世界新世界
+                    新世界新世界新世界新世界新世界新世界新世界新世界新世界新世界
+                    新世界新世界新世界新世界新世界新世界新世界新世界新世界新世界
+                </span>
+                <button class="btn">更多精彩</button>
+                <div class="tab">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <div class="section6 flexBox">
+            <div class="left flexBox">
+                <span class="title">
+                    新时代
+                    <br/>
+                    关于热爱生活的我们
+                </span>
+                <button>了解更多</button>
+            </div>
+            <div class="mid flexBox">
+                 <span class="title">
+                    新时代
+                    <br/>
+                    关于热爱生活的我们
+                </span>
+                <button>了解更多</button>
+            </div>
+            <div class="right flexBox">
+            </div>
+        </div>
+        <div class="section7 flexBox">
+            <div class="head flexBox">
+                <span class="title">成为我们的志愿者</span>
+                <span class="description">
+                    新世界的大家庭,需要每一个热爱生活的人加入.
+                    如果你够年轻,有梦想,有激情,那就不要犹豫,快来加入我们,成为那个,改变生活的人.
+                </span>
+            </div>
+        </div>
+        <div class="section8 flexBox">
+            <form class="formBox">
+                <div class="formBox flexBox">
+                    <div class="leftBox flexBox">
+                        <div>
+                            <span class="title">新世界志愿者协议</span>
+                            <span class="detail">
+                                加入新世界志愿者的人员必须遵守中华人民
+                                共共和国的相关法律法规，并且本着平等资源的原则加入新世界志愿者的人员必须遵守中华人民共共和国的
+                                相关法律法规，并且本着平等资源的原则
+                            </span>
+                        </div>
+                        <div>
+                            <span class="title">新世界志愿者协议</span>
+                            <span class="detail">
+                                加入新世界志愿者的人员必须遵守中华人民
+                                共共和国的相关法律法规，并且本着平等资源的原则加入新世界志愿者的人员必须遵守中华人民共共和国的
+                                相关法律法规，并且本着平等资源的原则
+                            </span>
+                        </div>
+                        <div>
+                            <span class="title">新世界志愿者协议</span>
+                            <span class="detail">
+                                加入新世界志愿者的人员必须遵守中华人民
+                                共共和国的相关法律法规，并且本着平等资源的原则加入新世界志愿者的人员必须遵守中华人民共共和国的
+                                相关法律法规，并且本着平等资源的原则
+                            </span>
+                        </div>
+                    </div>
+                    <div class="rightBox">
+                        <div data-label="姓名">
+                            <input type="text" name="name"/>
+                        </div>
+                        <div data-label="年龄">
+                            <input type="text" name="name"/>
+                        </div>
+                        <div data-label="联系方式">
+                            <input type="text" name="name"/>
+                        </div>
+                        <div data-label="地址">
+                            <input type="text" name="name"/>
+                        </div>
+                        <div class="textArea">
+                            <textarea class="description" placeholder="请简单说说你的理想"></textarea>
+                        </div>
+                        <div class="submit">
+                            <button>提交申请</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="section9 flexBox">
+            <div class="content flexBox">
+                <span class="title">联系我们</span>
+                <span class="description">
+                    为了更好地获取我们地产品资讯,您可以留下电子邮箱以快速订阅我们地产品资讯,
+                通过一下方式关注我们.
+                </span>
+                <div class="subscription">
+                    <form>
+                        <input type="text" placeholder="someone@email.com" />
+                        <button>提交</button>
+                    </form>
+                </div>
+                <div class="social">
+                    <a href="#" class="logo"></a>
+                    <a href="#" class="logo"></a>
+                    <a href="#" class="logo"></a>
+                    <a href="#" class="logo"></a>
+                </div>
+            </div>
+        </div>
+        <footer class="footerBox">
+            <span class="footDescription">&copy2016新世界</span>
+            <a href="#" class="top">Back to top</a>
+        </footer>
+    </div>
+</body>
+</html>
