@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--任务目的-->
+
+    <!--使用 HTML 与 CSS 实现类似 BootStrap 的响应式 12 栏网格布局，根据屏幕宽度，元素占的栏数不同。-->
+
+    <!--任务描述-->
+
+    <!--需要实现如 效果图 所示，调整浏览器宽度查看响应式效果，效果图中的红色的文字是说明，不需要写在 HTML 中。-->
+
+    <!--任务注意事项-->
+
+    <!--网格布局的作用在于更有效地控制元素在网页中所占比例的大小。比如，博客中有一个留言板模块，在比较大的屏幕上，我们希望它占了右边 25% 的宽度，在手机等比较小的屏幕上，我们希望它占 100% 的宽度，出现在博客文章下方。网格布局是一种实现这一需求的办法，它的好处是，把所有的宽度分为固定栏数（常用 12 栏），从而更高效的控制元素宽度。而这功能，我们使用 HTML 和 CSS 就能实现了。-->
+    <!--以 BootStrap 的网格系统为例，DOM 元素类名形如 col-md-4；其中 col 是“列” column 的缩写；md 是 medium 的缩写，适用于应屏幕宽度大于 768px 的场景；4 是占四栏的意思。因此，col-md-4 的意思是，在屏幕宽度大于 768px 时，该元素占四栏。-->
+
+    <meta charset="UTF-8">
+    <title>task8 栅格系统</title>
+    <style>
+        *{
+            padding: 0;
+            margin:0;
+            box-sizing:border-box;
+        }
+        .border{
+            border:1px solid #5e5e5e;
+        }
+        /*float*/
+        .container{
+            width: 100%;
+        }
+        .row:before,.row:after{
+            content: '';
+            clear: both;
+            display: table;
+        }
+        @media (min-width: 768px) {
+            [class*='col-']{
+                font-size: 5px;
+                float: left;
+                background-color: #eee;
+                height: 50px;
+                margin: 10px 10px 10px 10px;
+                line-height: 25px;
+            }
+            [class*='col-']>p{
+                text-align: center;
+                color: #8c8c8c;
+                padding: 0;
+            }
+            .col-md-1 {
+                width: calc(8.33333% - 20px);
+            }
+
+            .col-md-2 {
+                width: calc(16.66667% - 20px);
+            }
+
+            .col-md-3 {
+                width: calc(25% - 20px);
+            }
+
+            .col-md-4 {
+                width: calc(33.33333% - 20px);
+            }
+
+            .col-md-5 {
+                width: calc(41.66667% - 20px);
+            }
+
+            .col-md-6 {
+                width: calc(50% - 20px);
+            }
+
+            .col-md-7 {
+                width: 58.33333%;
+            }
+
+            .col-md-8 {
+                width: calc(66.66667% - 20px);
+            }
+
+            .col-md-9 {
+                width: calc(75% - 20px);
+            }
+
+            .col-md-10 {
+                width: calc(83.33333% - 20px);
+            }
+
+            .col-md-11 {
+                width: calc(91.66667% - 20px);
+            }
+
+            .col-md-12 {
+                width: calc(100% - 20px);
+            }
+        }
+
+        @media (max-width: 767px) {
+            [class*='col-']{
+                font-size: 5px;
+                float: left;
+                background-color: #eee;
+                height: 50px;
+                margin: 10px 10px 10px 10px;
+                /*line-height: 25px;*/
+            }
+            [class*='col-']>p{
+                /*text-align: center;*/
+                color: #8c8c8c;
+                padding: 0;
+            }
+            .col-sm-1 {
+                width: calc(8.33333% - 20px);
+            }
+
+            .col-sm-2 {
+                width: calc(16.66667% - 20px);
+            }
+
+            .col-sm-3 {
+                width: calc(25% - 20px);
+            }
+
+            .col-sm-4 {
+                width: calc(33.33333% - 20px);
+            }
+
+            .col-sm-5 {
+                width: calc(41.66667% - 20px);
+            }
+
+            .col-sm-6 {
+                width: calc(50% - 20px);
+            }
+
+            .col-sm-7 {
+                width: 58.33333%;
+            }
+
+            .col-sm-8 {
+                width: calc(66.66667% - 20px);
+            }
+
+            .col-sm-9 {
+                width: calc(75% - 20px);
+            }
+
+            .col-sm-10 {
+                width: calc(83.33333% - 20px);
+            }
+
+            .col-sm-11 {
+                width: calc(91.66667% - 20px);
+            }
+
+            .col-sm-12 {
+                width: calc(100% - 20px);
+            }
+        }
+
+        /*flex*/
+        .flexContainer{
+            width: 100%;
+        }
+        .flexRow{
+            flex-wrap:wrap ;
+            display: flex;
+        }
+        @media (min-width: 768px) {
+            [class*='flexCol-']{
+                font-size: 5px;
+                background-color: #eee;
+                height: 50px;
+                margin: 10px 10px 10px 10px;
+                line-height: 25px;
+            }
+            [class*='col-']>p{
+                text-align: center;
+                color: #8c8c8c;
+                padding: 0;
+            }
+            .flexCol-md-1 {
+                flex:0 0 calc(8.33333% - 20px);
+            }
+
+            .flexCol-md-2 {
+                flex:0 0 calc(16.66667% - 20px);
+            }
+
+            .flexCol-md-3 {
+                flex:0 0 calc(25% - 20px);
+            }
+
+            .flexCol-md-4{
+                flex:0 0 calc(33.33333% - 20px);
+            }
+
+            .flexCol-md-5 {
+                flex:0 0 calc(41.66667% - 20px);
+            }
+
+            .flexCol-md-6 {
+                flex:0 0 calc(50% - 20px);
+            }
+
+            .flexCol-md-7 {
+                flex:0 0 calc(58.33333% - 20px);
+            }
+
+            .flexCol-md-8{
+                flex:0 0 calc(66.66667% - 20px);
+            }
+
+            .flexCol-md-9 {
+                flex:0 0 calc(75% - 20px);
+            }
+
+            .flexCol-md-10 {
+                flex:0 0 calc(83.33333% - 20px);
+            }
+
+            .flexCol-md-11 {
+                flex:0 0 calc(91.66667% - 20px);
+            }
+
+            .flexCol-md-12 {
+                flex:0 0 calc(100% - 20px);
+            }
+        }
+        @media (max-width: 767px){
+            [class*='flexCol-']{
+                font-size: 5px;
+                float: left;
+                background-color: #eee;
+                height: 50px;
+                margin: 10px 10px 10px 10px;
+                /*line-height: 25px;*/
+            }
+            [class*='flexCol-']>p{
+                /*text-align: center;*/
+                color: #8c8c8c;
+                padding: 0;
+            }
+            .flexCol-sm-1 {
+                flex:0 0 calc(8.33333% - 20px);
+            }
+
+            .flexCol-sm-2 {
+                flex:0 0 calc(16.66667% - 20px);
+            }
+
+            .flexCol-sm-3 {
+                flex:0 0 calc(25% - 20px);
+            }
+
+            .flexCol-sm-4{
+                flex:0 0 calc(33.33333% - 20px);
+            }
+
+            .flexCol-sm-5 {
+                flex:0 0 calc(41.66667% - 20px);
+            }
+
+            .flexCol-sm-6 {
+                flex:0 0 calc(50% - 20px);
+            }
+
+            .flexCol-sm-7 {
+                flex:0 0 calc(58.33333% - 20px);
+            }
+
+            .flexCol-sm-8{
+                flex:0 0 calc(66.66667% - 20px);
+            }
+
+            .flexCol-sm-9 {
+                flex:0 0 calc(75% - 20px);
+            }
+
+            .flexCol-sm-10 {
+                flex:0 0 calc(83.33333% - 20px);
+            }
+
+            .flexCol-sm-11 {
+                flex:0 0 calc(91.66667% - 20px);
+            }
+
+            .flexCol-sm-12 {
+                flex:0 0 calc(100% - 20px);
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>使用float:</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-sm-6 border"><p>col-md-4 col-sm-6</p></div>
+        <div class="col-md-4 col-sm-6 border"><p>col-md-4 col-sm-6</p></div>
+        <div class="col-md-4 col-sm-12 border"><p>col-md-4 col-sm-12</p></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-sm-3 border"><p>col-md-3 col-sm-3</p></div>
+        <div class="col-md-6 col-sm-6 border"><p>col-md-6 col-sm-6</p></div>
+        <div class="col-md-6 col-sm-3 border"><p>col-md-6 col-sm-3</p></div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 col-sm-2 border"><p>col-md-1 col-sm-2</p></div>
+        <div class="col-md-1 col-sm-2 border"><p>col-md-1 col-sm-2</p></div>
+        <div class="col-md-2 col-sm-8 border"><p>col-md-2 col-sm-8</p></div>
+        <div class="col-md-2 col-sm-3 border"><p>col-md-2 col-sm-3</p></div>
+        <div class="col-md-6 col-sm-3 border"><p>col-md-6 col-sm-3</p></div>
+    </div>
+</div>
+<h1>使用flex:</h1>
+<div class="flexContainer">
+    <div class="flexRow">
+        <div class="flexCol-md-4 flexCol-sm-6 border"><p>flexCol-md-4</p></div>
+        <div class="flexCol-md-4 flexCol-sm-6 border"><p>flexCol-md-4</p></div>
+        <div class="flexCol-md-4 flexCol-sm-12 border"><p>flexCol-md-4</p></div>
+    </div>
+    <div class="flexRow">
+        <div class="flexCol-md-3 flexCol-sm-3 border"><p>flexCol-md-3</p></div>
+        <div class="flexCol-md-6 flexCol-sm-6 border"><p>flexCol-md-6</p></div>
+        <div class="flexCol-md-6 flexCol-sm-3 border"><p>flexCol-md-6</p></div>
+    </div>
+    <div class="flexRow">
+        <div class="flexCol-md-1 flexCol-sm-2 border"><p>flexCol-md-1</p></div>
+        <div class="flexCol-md-1 flexCol-sm-2 border"><p>flexCol-md-1</p></div>
+        <div class="flexCol-md-2 flexCol-sm-8 border"><p>flexCol-md-2</p></div>
+        <div class="flexCol-md-2 flexCol-sm-3 border"><p>flexCol-md-2</p></div>
+        <div class="flexCol-md-6 flexCol-sm-3 border"><p>flexCol-md-6</p></div>
+    </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>
