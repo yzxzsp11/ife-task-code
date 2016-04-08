@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--任务目的-->
+
+    <!--学习如何flex进行布局，学习如何根据屏幕宽度调整布局策略。-->
+    <!--任务描述-->
+
+    <!--需要实现的效果如效果图（点击打开）所示，调整浏览器宽度查看响应式效果，红色的文字是说明，不需要写在 HTML 中。-->
+    <!--任务注意事项-->
+
+    <!--只需要完成HTML，CSS代码编写，不需要写JavaScript-->
+    <!--屏幕宽度小于 640px 时，调整 Flexbox 的属性以实现第四个元素移动到最前面的效果，而不要改动第一个元素的边框颜色与高度实现效果图。-->
+    <!--思考 Flexbox 布局和网格布局的异同，以及分别适用于什么样的场景。可以搜索一下别人的结论，不过要保持思辨的态度，不可直接接受别人的观点。-->
+    <!--HTML 及 CSS 代码结构清晰、规范-->
+    <meta charset="UTF-8">
+    <title>task10</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .flex-container{
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            justify-content: space-between;
+            border: 1px solid #ccc;
+            /*flex-grow,flex-shrink,flex-basis*/
+            flex:1 1 auto ;
+        }
+        [class*='flex-box']{
+            width: 150px;
+            margin-bottom: 20px;
+            margin-left: 10px;
+            border: 1px solid #f00;
+        }
+        .flex-container .flex-box1{
+            height: 120px;
+        }
+        .flex-container .flex-box2{
+            height: 100px;
+        }
+        .flex-container .flex-box3{
+            height: 40px;
+        }
+        .flex-container .flex-box4{
+            height: 200px;
+            border: 1px solid #0f0;
+        }
+        @media (max-width:640px){
+            .flex-container{
+                /*flex-direction,flex-wrap*/
+                flex-flow: row wrap;
+                align-items:flex-start;
+            }
+            .flex-container .flex-box4{
+                order: -2;
+            }
+            /*.flex-container .flex-box3{*/
+                /*order: -1;*/
+            /*}*/
+        }
+    </style>
+</head>
+<body>
+<div class="flex-container">
+    <div class="flex-box1">
+        1
+    </div>
+    <div class="flex-box2">
+        2
+    </div>
+    <div class="flex-box3">
+        3
+    </div>
+    <div class="flex-box4">
+        4
+    </div>
+</div>
+</body>
+</html>
