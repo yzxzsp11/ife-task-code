@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--任务目的-->
+
+    <!--进行移动开发时的HTML及CSS实践-->
+    <!--掌握移动Web开发在页面架构和布局的方法及差异性-->
+    <!--掌握移动Web开发页面调试的方法-->
+    <!--任务描述-->
+
+    <!--实现与 设计图（点击查看） 一致的移动端Web页面-->
+    <!--任务注意事项-->
+
+    <!--本任务只涉及 HTML 及 CSS-->
+    <!--实现的页面和设计图在iOS Safari，微信，Android浏览器中均基本一致-->
+    <!--HTML 及 CSS 代码结构清晰、规范-->
+    <!--尝试在适合的地方使用CSS 3中的flex布局-->
+    <!--有能力的同学可以在实现一遍后尝试用less, sass或者stylus等再实现一次-->
+    <meta charset="UTF-8">
+    <title>Task11移动端页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <style>
+        @media all and (max-width:374px ) {
+            *{
+                font-size: 17px;
+            }
+        }
+        @media all and (min-width:375px ) and (max-width:414px){
+            *{
+                font-size: 22px;
+            }
+        }
+        @media all and (min-width: 415px) and (max-width: 767px) {
+            *{
+                font-size: 24px;
+            }
+        }
+        @media all and (min-width: 768px)  {
+            *{
+                font-size: 45px;
+            }
+        }
+        /*reset*/
+        a{
+            text-decoration: none;
+        }
+        a, img {
+            -webkit-touch-callout: none; /* 禁止长按链接与图片弹出菜单 */
+        }
+        html, body {
+            -webkit-user-select: none;   /* 禁止选中文本（如无文本选中需求，此为必选项） */
+            user-select: none;
+        }
+        body {   /*使用无衬线字体*/
+            font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+        }
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            min-width: 180px;
+        }
+        .u-back{
+            position: relative;
+            text-align: center;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            background-color: #91d4da;
+        }
+        .u-back .f-back{
+            position: absolute;
+            background: url(http://sustife.github.io/period_1/task11/img/back.png)no-repeat 2px;
+            background-size: 0.6rem;
+            padding-left: 0.8rem;
+            color: white;
+            left: 0.5rem;
+        }
+        .u-back>h3{
+            /*text-align: center;*/
+            color: white;
+        }
+        .g-mn{
+
+        }
+        .u-nav{
+            display: flex;
+            justify-content: space-around;
+            flex:1 1 auto;
+            width: 100%;
+            height: 1.85rem;
+            text-align: center;
+        }
+        .u-nav >a{
+            font-size: 0.6rem;
+            color: black;
+            width: 3rem;
+            line-height: 1.85rem;
+            border-bottom: 2px solid #0aa9c1;
+        }
+        .u-banner{
+            width: 100%;
+            min-height: 8rem;
+        }
+        .u-banner>img{
+            width: 100%;
+        }
+        .f-flexBox{
+            display: flex;
+            justify-content: space-around;
+            flex:1 1 auto;
+        }
+        .m-snav{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+            border-bottom: 1px solid #c0c0c0;
+        }
+        .m-snav>a{
+            color: black;
+            font-size: 0.7rem;
+            width: 3rem;
+            padding-top: 3rem;
+            padding-bottom: 0.5rem;
+            text-align: center;
+            background: url(http://fa-ge.github.io/ife-2016/phase1/task11/fage/dist/images/tab.png)no-repeat 6px 4px;
+            background-size: 2.5rem;
+        }
+        .m-snav2{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+        .m-snav2>a{
+            padding-top: 0.5rem;
+            color: black;
+            background:url(http://fa-ge.github.io/ife-2016/phase1/task11/fage/dist/images/col-1.png) no-repeat;
+            background-size: 3rem;
+        }
+        .m-snav2 a>span{
+            display: block;
+            text-align: center;
+        }
+        .m-snav2 .s-ft1{
+            padding-bottom:10px;
+            margin-top: 3rem;
+        }
+        .m-snav2 .s-ft2{
+            padding-bottom:10px;
+            font-size: 0.6rem;
+        }
+        .u-split{
+            width: 100%;
+            height: 0.7rem;
+            background-color: #e5e5e5;
+        }
+        [class*='m-sec']>h3{
+            padding: 0.5rem 0 0.5rem 0;
+            margin-left:0.5rem;
+            margin-right: 0.5rem;
+            border-bottom: 1px solid #c0c0c0;
+        }
+        .m-item1{
+            margin-left:0.5rem;
+            margin-right: 0.5rem;
+            padding-top: 0.5rem;
+        }
+        .m-item1>img{
+            display: inline-block;
+            width: 5rem;
+            height: 5rem;
+            border: 1px solid #ffc256;
+        }
+        .m-content{
+            display: inline-block;
+            vertical-align: top;
+        }
+        .m-content .u-content{
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            display: inline-block;
+            background-color: #e6e6e6;
+            width:4rem ;
+            height: 2rem;
+            line-height: 2rem;
+        }
+        .m-hd{
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+            padding-top: 0.5rem;
+        }
+        .m-hd>img{
+            display: inline-block;
+            width: 6rem;
+            height: 4rem;
+        }
+        .m-hd .m-article{
+            position: relative;
+            display: inline-block;
+            vertical-align: top;
+            width: 9rem;
+            height: 4rem;
+        }
+        .m-hd .m-article>span{
+            position: absolute;
+            bottom: 0;
+            font-size: 0.4rem;
+            color: #c0c0c0;
+        }
+        .m-hd2{
+            position: relative;
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+            padding-top: 0.5rem;
+            padding-bottom: 1rem;
+        }
+        .m-hd2>img{
+            margin-top: 0.5rem;
+            width: 5rem;
+            height: 4rem;
+        }
+        .m-hd2>span{
+            position: absolute;
+            bottom: 0.2rem;
+            font-size: 0.4rem;
+            color: #c0c0c0;
+        }
+        .u-split2{
+            width: 100%;
+            height: 3rem;
+            background-color: #e5e5e5;
+        }
+    </style>
+</head>
+<body>
+<header class="u-back">
+    <a href="#" class="f-back">
+        返回
+    </a>
+    <h3>这是标题</h3>
+</header>
+<div class="g-mn">
+    <div class="u-nav">
+        <a href="#">选项一</a>
+        <a href="#">选项一</a>
+        <a href="#">选项一</a>
+        <a href="#">选项一</a>
+        <a href="#">选项一</a>
+    </div>
+    <div class="u-banner">
+        <img src="http://sustife.github.io/period_1/task11/img/banner.jpg" alt="banner"/>
+    </div>
+    <div class="m-snav f-flexBox">
+            <a href="#">标签</a>
+            <a href="#">标签</a>
+            <a href="#">标签</a>
+            <a href="#">标签</a>
+            <a href="#">标签</a>
+    </div>
+    <div class="m-snav2 f-flexBox">
+        <a href="#"><span class="s-ft1">分栏一</span><span class="s-ft2">小标题</span></a>
+        <a href="#"><span class="s-ft1">分栏一</span><span class="s-ft2">小标题</span></a>
+        <a href="#"><span class="s-ft1">分栏一</span><span class="s-ft2">小标题</span></a>
+    </div>
+    <div class="u-split"></div>
+    <section class="m-sec1">
+        <h3>模块一</h3>
+        <div class="m-item1 f-flexbox">
+            <img src="http://sustife.github.io/period_1/task11/img/titleimg.jpg" alt="pic"/>
+            <div class="m-content f-flexBox">
+                <div class="u-content">文案一</div>
+                <div class="u-content">文案一</div>
+                <br/>
+                <div class="u-content">文案一</div>
+                <div class="u-content">文案一</div>
+            </div>
+        </div>
+        <div class="m-item1 f-flexbox">
+            <img src="http://sustife.github.io/period_1/task11/img/titleimg.jpg" alt="pic"/>
+            <div class="m-content f-flexBox">
+                <div class="u-content">文案一</div>
+                <div class="u-content">文案一</div>
+                <br/>
+                <div class="u-content">文案一</div>
+                <div class="u-content">文案一</div>
+            </div>
+        </div>
+    </section>
+        <div class="u-split"></div>
+        <section class="m-sec1">
+            <h3>模块二</h3>
+            <div class="m-item1 f-flexbox">
+                <img src="http://sustife.github.io/period_1/task11/img/titleimg.jpg" alt="pic"/>
+                <div class="m-content f-flexBox">
+                    <div class="u-content">文案二</div>
+                    <div class="u-content">文案二</div>
+                    <br/>
+                    <div class="u-content">文案二</div>
+                    <div class="u-content">文案二</div>
+                </div>
+            </div>
+            <div class="m-item1 f-flexbox">
+                <img src="http://sustife.github.io/period_1/task11/img/titleimg.jpg" alt="pic"/>
+                <div class="m-content f-flexBox">
+                    <div class="u-content">文案二</div>
+                    <div class="u-content">文案二</div>
+                    <br/>
+                    <div class="u-content">文案二</div>
+                    <div class="u-content">文案二</div>
+                </div>
+            </div>
+        </section>
+        <div class="u-split"></div>
+    <div class="m-hd">
+        <img src="http://sustife.github.io/period_1/task11/img/demo2.jpg" alt="pic2"/>
+        <article class="m-article">
+            <h4>这是标题这是标题这是题这是标题这是</h4>
+            <span>文章来源 7分钟前</span>
+        </article>
+    </div>
+    <div class="u-split"></div>
+    <div class="m-hd">
+        <img src="http://sustife.github.io/period_1/task11/img/demo2.jpg" alt="pic2"/>
+        <article class="m-article">
+            <h4>这是标题这是标题这是题这是标题这是</h4>
+            <span>文章来源 7分钟前</span>
+        </article>
+    </div>
+    <div class="u-split"></div>
+    <div class="m-hd2">
+        <h4>这是标题这是标题</h4>
+        <img src="http://sustife.github.io/period_1/task11/img/demo2.jpg" alt="pic2"/>
+        <img src="http://sustife.github.io/period_1/task11/img/demo2.jpg" alt="pic2"/>
+        <img src="http://sustife.github.io/period_1/task11/img/demo2.jpg" alt="pic2"/>
+        <br/>
+        <span>文章来源 7分钟前</span>
+    </div>
+    <div class="u-split2"></div>
+</div>
+</body>
+</html>
