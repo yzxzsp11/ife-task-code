@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--任务目的-->
+
+    <!--学习了解 CSS 3 都有哪些新特性，并选取其中一些进行实战小练习-->
+    <!--任务描述-->
+
+    <!--实现 示例图（点击查看） 中的几个例子-->
+    <!--实现单双行列不同颜色，且前三行特殊表示的表格-->
+    <!--实现正常状态和focus状态宽度不一致的input文本输入框，且鼠标焦点进入输入框时，宽度的变化以动画呈现-->
+    <!--不使用JavaScript，实现一个Banner图轮流播放的效果，且点击右下角的1，2，3可以切换到对应Banner图片-->
+    <!--任务注意事项-->
+
+    <!--本任务只涉及 HTML 及 CSS-->
+    <!--HTML 及 CSS 代码结构清晰、规范-->
+    <!--除了任务中的3个小任务，尽可能多地尝试 CSS 3 的其他新特性-->
+    <meta charset="UTF-8">
+    <title>task13 CSS3</title>
+    <style>
+        ol,ul,li{
+            list-style: none;
+        }
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .u-tb{
+            overflow: hidden;
+        }
+        section{
+            margin: 50px;
+        }
+        /*table*/
+        .u-tb ul:nth-of-type(1){
+            float: left;
+            width: 35px;
+        }
+        .u-tb ul:nth-of-type(2){
+            float: left;
+            width: 130px;
+        }
+        .u-tb ul:nth-of-type(3){
+            float:left;
+            width: 50px;
+        }
+        .u-tb ul li:nth-of-type(odd){
+            background-color: #ccc;
+        }
+        .u-tb ul li:nth-of-type(1){
+            background-color: #000;
+            font-weight: bold;
+            color: #fff;
+        }
+        .u-tb ul li:nth-of-type(2),.u-tb ul li:nth-of-type(3),.u-tb ul li:nth-of-type(4){
+            color: red;
+        }
+        /*input*/
+        .u-ipt input{
+            padding-left: 20px;
+            border: none;
+            background-color: #ffe6fd;
+            border-radius: 10px;
+            font-size: 15px;
+            line-height: 30px;
+            width: 100px;
+            height: 30px;
+            outline: none;
+            -webkit-transition: width 1s;
+            -moz-transition: width 1s;
+            -ms-transition: width 1s;
+            -o-transition: width 1s;
+            transition: width 1s;
+        }
+        .u-ipt input:focus{
+            width: 200px;
+        }
+        /*banner*/
+        .u-banner{
+            position: relative;
+            width: 300px;
+            height: 100px;
+            overflow: hidden;
+        }
+        .u-bannerContainer{
+            position: absolute;
+            width: 300%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            /*自动轮播*/
+            animation: banner 10s infinite ;
+        }
+        .u-bannerContainer li{
+            /*transition: all ease-in-out 3s;*/
+            float: left;
+            width: 300px;
+            height: 100px;
+        }
+        .u-bannerContainer li:nth-of-type(1){
+            background-color: #f8d053;
+        }
+        .u-bannerContainer li:nth-of-type(2){
+            background-color: #00b3ee;
+        }
+        .u-bannerContainer li:nth-of-type(3){
+            background-color: #ffe6fd;
+        }
+        @keyframes banner{
+            15% { transform: translate(0px); }
+            30%{ transform: translate(-300px);}
+            45% { transform: translate(-300px);}
+            60% { transform: translate(-600px);}
+            75% { transform: translate(-600px);}
+            90% { transform: translate(0);}
+        }
+        .u-bannerController{
+            z-index: 10;
+            position: absolute;
+            width: 100px;
+            height: 30px;
+            bottom:0;
+            right: 0;
+        }
+        .u-bannerController li{
+            float: left;
+            color: white;
+            background-color: rgba(0,0,0,0.2);
+            padding: 10px;
+            /*cursor: pointer;*/
+        }
+        a{
+            text-decoration: none;
+            color: white;
+        }
+        /*轮播图*/
+        .u-banner2{
+            position: relative;
+            width: 300px;
+            height: 100px;
+            overflow: hidden;
+        }
+        .u-bannerContainer2{
+            position: absolute;
+            transition: all 2s ease-in-out;
+            width: 300%;
+            height: 100%;
+            left: 0;
+            top: 0;
+        }
+        .u-bannerContainer2 li{
+            /*transition: all ease-in-out 3s;*/
+            float: left;
+            width: 300px;
+            height: 100px;
+        }
+        .u-bannerContainer2 li:nth-of-type(1){
+            background-color: #f8d053;
+        }
+        .u-bannerContainer2 li:nth-of-type(2){
+            background-color: #00b3ee;
+        }
+        .u-bannerContainer2 li:nth-of-type(3){
+            background-color: #ffe6fd;
+        }
+        .u-bannerController2{
+            position: absolute;
+            width: 100px;
+            height: 30px;
+            bottom: 0;
+            right: 0;
+        }
+        .u-bannerController2 li{
+            /*position: absolute;*/
+            float: left;
+            color: white;
+            background-color: rgba(0,0,0,0.2);
+            padding: 10px;
+        }
+        #img1:target~.u-bannerContainer2{
+            left: 0;
+        }
+        #img2:target~.u-bannerContainer2{
+            left: -100%;
+        }
+        #img3:target~.u-bannerContainer2{
+            left: -200%;
+        }
+    </style>
+</head>
+<body>
+<section class="u-tb">
+    <ul>
+        <li>排名</li>
+        <li>1.</li>
+        <li>2.</li>
+        <li>3.</li>
+        <li>4.</li>
+        <li>5.</li>
+        <li>6.</li>
+        <li>7.</li>
+        <li>8.</li>
+        <li>9.</li>
+        <li>10.</li>
+    </ul>
+    <ul>
+        <li>网站</li>
+        <li>百度前端技术学院</li>
+        <li>百度前端技术学院</li>
+        <li>百度前端技术学院</li>
+        <li>百度前端技术学院</li>
+        <li>百度前端技术学院</li>
+        <li>百度前端技术学院</li>
+        <li>百度前端技术学院</li>
+        <li>百度前端技术学院</li>
+        <li>百度前端技术学院</li>
+        <li>百度前端技术学院</li>
+    </ul>
+    <ul>
+        <li>热度</li>
+        <li>13000</li>
+        <li>12000</li>
+        <li>11000</li>
+        <li>10000</li>
+        <li>9000</li>
+        <li>8000</li>
+        <li>7000</li>
+        <li>6000</li>
+        <li>5000</li>
+        <li>4000</li>
+    </ul>
+</section>
+<section class="u-ipt">
+    <input type="text" placeholder="click"/>
+</section>
+<h1>css3自动轮播图</h1>
+<section class="u-banner">
+    <ul class="u-bannerContainer">
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ol class="u-bannerController">
+        <li><a>1</a></li>
+        <li><a>2</a></li>
+        <li><a>3</a></li>
+    </ol>
+</section>
+<h1>css3手动轮播图</h1>
+<section class="u-banner2">
+    <!--以下三行使得contolller点击后不会移动-->
+    <span id="img1"></span>
+    <span id="img2"></span>
+    <span id="img3"></span>
+    <ul class="u-bannerContainer2">
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ol class="u-bannerController2">
+        <li><a href="#img1">1</a></li>
+        <li><a href="#img2">2</a></li>
+        <li><a href="#img3">3</a></li>
+    </ol>
+</section>
+</body>
+</html>
