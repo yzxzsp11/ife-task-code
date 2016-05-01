@@ -336,7 +336,21 @@
         <br/>
         <span>文章来源 7分钟前</span>
     </div>
+    <!--<div class="mask" style="position: fixed;width: 100%;height: windowHeight px;background-color: rbga(0,0,0,0.7);top: 0;left: 0;z-index: 999;"><p style="color: #fff;text-align: center">Loading...</p></div>-->
     <div class="u-split2"></div>
 </div>
+<script src= "http://libs.baidu.com/jquery/2.0.0/jquery.min.js" ></script>
+<script>
+    $(function(){
+       loading();
+    });
+    function loading(){
+        var windowHeight=window.innerHeight;
+
+        $('body').prepend('<div class="mask" style="position: fixed;width: 100%;height: '+windowHeight+'px;background-color: rgba(0,0,0,0.7);top: 0;left: 0;z-index: 999;"><p style="color: #fff;text-align: center;line-height:'+windowHeight+'px; ">Loading...</p></div>');
+        $('.mask').fadeOut(2000);
+        console.log($('mask').height());
+    }
+</script>
 </body>
 </html>
