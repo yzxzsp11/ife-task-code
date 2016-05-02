@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--任务目的-->
+
+    <!--学习与实践JavaScript的基本语法、语言特性-->
+    <!--初步了解JavaScript的事件是什么-->
+    <!--初步了解JavaScript中的DOM是什么-->
+    <!--任务描述-->
+
+    <!--如图，模拟一个队列，队列的每个元素是一个数字，初始队列为空-->
+    <!--有一个input输入框，以及4个操作按钮-->
+    <!--点击"左侧入"，将input中输入的数字从左侧插入队列中；-->
+    <!--点击"右侧入"，将input中输入的数字从右侧插入队列中；-->
+    <!--点击"左侧出"，读取并删除队列左侧第一个元素，并弹窗显示元素中数值；-->
+    <!--点击"右侧出"，读取并删除队列又侧第一个元素，并弹窗显示元素中数值；-->
+    <!--点击队列中任何一个元素，则该元素会被从队列中删除-->
+    <!--任务注意事项-->
+
+    <!--实现简单功能的同时，请仔细学习JavaScript基本语法、事件、DOM相关的知识-->
+    <!--请注意代码风格的整齐、优雅-->
+    <!--代码中含有必要的注释-->
+    <!--示例图仅为参考，不需要完全一致-->
+    <!--需要考虑数字输入的合法性-->
+    <!--建议不使用任何第三方库、框架-->
+    <meta charset="UTF-8">
+    <title>task18</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .g-intro{
+            margin: 0 auto;
+            width: 600px;
+        }
+        .g-container {
+            width: 800px;
+            height: 400px;
+            margin: 100px auto;
+        }
+
+        .m-input-btn input {
+            display: inline-block;
+            vertical-align: middle;
+            height: 30px;
+            line-height: 30px;
+            font-size: 30px;
+        }
+
+        .m-input-btn button {
+            display: inline-block;
+            border: none;
+            background-color: #00b3ee;
+            color: white;
+            width: 60px;
+            height: 30px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        #u-queue {
+
+        }
+
+        #u-queue li {
+            margin: 10px;
+            padding: 10px;
+            /*width: 40px;*/
+            height: 30px;
+            display: inline-block;
+            background-color: #00b3ee;
+            color: white;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .f-input-error{
+            background-color: red;
+        }
+
+    </style>
+</head>
+<body>
+<div class="g-intro">
+    <h4>如图，模拟一个队列，队列的每个元素是一个数字，初始队列为空</h4>
+    <h4>1.有一个input输入框，以及4个操作按钮</h4>
+    <h4>2.点击"左侧入"，将input中输入的数字从左侧插入队列中；</h4>
+    <h4>3.点击"右侧入"，将input中输入的数字从右侧插入队列中；</h4>
+    <h4>4.点击"左侧出"，读取并删除队列左侧第一个元素，并弹窗显示元素中数值；</h4>
+    <h4>5.点击"右侧出"，读取并删除队列又侧第一个元素，并弹窗显示元素中数值；</h4>
+    <h4>6.点击队列中任何一个元素，则该元素会被从队列中删除</h4>
+</div>
+<div class="g-container">
+    <div class="m-input-btn">
+        <input type="text" id="u-input"/>
+        <button id="f-left-in">左侧入</button>
+        <button id="f-right-in">右侧入</button>
+        <button id="f-left-out">左侧出</button>
+        <button id="f-right-out">右侧出</button>
+    </div>
+    <ul id="u-queue">
+
+    </ul>
+</div>
+<script>
+    function init() {
+
+        $('f-left-in').addEventListener('click', function () {
+            leftIn();
+//            重新生成列表
+            createQueue();
+        });
+        $('f-right-in').addEventListener('click', function () {
+            rightIn();
+            createQueue();
+        });
+        $('f-left-out').addEventListener('click', function () {
+            leftOut();
+            createQueue();
+        });
+        $('f-right-out').addEventListener('click', function () {
+            rightOut();
+            createQueue();
+        });
+//        点击某个元素
+        $('u-queue').addEventListener('click',function(ev){
+            if(ev.target.nodeName.toLowerCase()=='li'){
+//                先删除该节点
+                removeElement(ev.target);
+//                改变对应的data数组的内容
+                changeQueue();
+            }
+        });
+    }
+    var data = [];
+    var $ = function (id) {
+        return document.getElementById(id);
+    };
+    function getData() {
+        var data1 = $('u-input').value;
+        if (isNaN(data1)||data1.trim()==null) {
+            alert(data1 + '不是数字,请输入数字');
+            $('u-input').value = '';
+            $('u-input').focus();
+            return false;
+        }
+        else {
+            $('u-input').value = '';
+            $('u-input').focus();
+            return data1;
+        }
+    }
+    function leftIn() {
+        var data1 = getData();
+        if (data1 != false) {
+            data.unshift(data1);
+        }
+        console.log(data);
+    }
+    function rightIn() {
+        var data1 = getData();
+        if (data1 != false) {
+            data.push(data1);
+        }
+        console.log(data);
+    }
+    function leftOut() {
+        var data1=data.shift();
+        alert('删除'+data1);
+    }
+    function rightOut() {
+        var data1=data.pop();
+        alert('删除'+data1);
+    }
+    function removeAllChild(id) {
+        var div = document.getElementById(id);
+        while (div.hasChildNodes()) //当div下还存在子节点时 循环继续
+        {
+            div.removeChild(div.firstChild);
+        }
+    }
+    function createQueue() {
+        removeAllChild('u-queue');
+        for (var data1 in data) {
+//            console.log('data1:'+data1);
+            var li = document.createElement('li');
+            li.innerHTML = data[data1];
+            $('u-queue').appendChild(li);
+        }
+    }
+//    删除点击的节点
+    function removeElement(element){
+        var parentElement = element.parentNode;
+        if(parentElement){
+            parentElement.removeChild(element);
+        }
+    }
+    function changeQueue(){
+        var li=$('u-queue').getElementsByTagName('li');
+        console.log('li.length:'+li.length);
+//        清空数组
+        data=[];
+//        依据dom节点内容来重新将数据写入数组
+        for(var i=0;i<li.length;i++){
+            data.push(li[i].innerHTML);
+//            data[i]=li[i].innerHTML;
+            console.log('li[i]:'+li[i].innerHTML);
+        }
+    }
+    init();
+</script>
+</body>
+</html>
